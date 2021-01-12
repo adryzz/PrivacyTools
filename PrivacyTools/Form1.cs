@@ -122,6 +122,7 @@ namespace PrivacyTools
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Show();
+            Cursor.Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
