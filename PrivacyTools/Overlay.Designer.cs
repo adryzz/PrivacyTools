@@ -39,6 +39,8 @@ namespace PrivacyTools
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Overlay";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Overlay";
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
