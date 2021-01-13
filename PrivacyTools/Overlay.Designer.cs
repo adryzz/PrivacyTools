@@ -45,6 +45,7 @@ namespace PrivacyTools
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Overlay_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Overlay_FormClosed);
             this.Load += new System.EventHandler(this.Overlay_Load);
             this.ResumeLayout(false);
 

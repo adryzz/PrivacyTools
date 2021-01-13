@@ -26,5 +26,10 @@ namespace PrivacyTools
         {
             Cursor.Hide();
         }
+
+        private void Overlay_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Cursor.Show();
+        }
     }
 }

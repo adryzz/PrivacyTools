@@ -18,6 +18,7 @@ namespace PrivacyTools
         bool AllowExit = false;
         List<Keys> AllKeys = new List<Keys>();
         List<VideoAction> Actions = new List<VideoAction>();
+        List<PlayerAction> PlayerActions = new PlayerAction[] { PlayerAction.Nothing, PlayerAction.Pause, PlayerAction.Mute }.ToList();
         public Form1()
         {
             InitializeComponent();
@@ -60,6 +61,20 @@ namespace PrivacyTools
 
         public void ExecuteActions()
         {
+            switch (Keybind.Action2)
+            {
+                case PlayerAction.Pause:
+                    {
+                        PrivacyManager.Pause(Handle);
+                        break;
+                    }
+                case PlayerAction.Mute:
+                    {
+                        PrivacyManager.Mute(Handle);
+                        break;
+                    }
+            }
+
             switch (Keybind.Action1)
             {
                 case VideoAction.BlackOverlay1:
@@ -98,18 +113,15 @@ namespace PrivacyTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex > 0 && comboBox2.SelectedIndex > 0)
+            if (comboBox1.SelectedIndex > 0 && comboBox2.SelectedIndex > 0 && comboBox3.SelectedIndex > 0)
             {
                 Keybind.Key = AllKeys[comboBox1.SelectedIndex];
                 Keybind.Action1 = Actions[comboBox2.SelectedIndex];
+                Keybind.Action2 = PlayerActions[comboBox3.SelectedIndex];
                 Keybind.Control = checkBox1.Checked;
                 Keybind.Alt = checkBox2.Checked;
                 Keybind.Shift = checkBox3.Checked;
                 System.IO.File.WriteAllText("keybind.json", Newtonsoft.Json.JsonConvert.SerializeObject(Keybind, Newtonsoft.Json.Formatting.Indented));
-                Hook.unhook();
-                Hook = new GlobalKeyboardHook();
-                Hook.HookedKeys.Add(Keybind.Key);
-                Hook.KeyDown += Hook_KeyDown;
             }
         }
 

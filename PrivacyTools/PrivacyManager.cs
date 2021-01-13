@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -123,5 +124,29 @@ namespace PrivacyTools
         {
             SendMessage(handle, WM_SYSCOMMAND, (IntPtr)SC_MONITORPOWER, (IntPtr)(int)MonitorState.STANDBY);
         }
+
+        public static void Pause(IntPtr handle)
+        {
+            keybd_event(VK_MEDIA_PAUSE, 0, KEYEVENTF_EXTENDEDKEY, IntPtr.Zero);
+            keybd_event(VK_MEDIA_PAUSE, 0, KEYEVENTF_KEYUP, IntPtr.Zero);
+        }
+
+        public static void Mute(IntPtr handle)
+        {
+            new CoreAudioController().DefaultPlaybackDevice.Mute(true);
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+        const int VK_MEDIA_NEXT_TRACK = 0xB0;
+        const int VK_MEDIA_PREV_TRACK = 0xB1;
+        const int VK_MEDIA_PLAY_PAUSE = 0xB3;
+        const int VK_MEDIA_PLAY = 0xFA;
+        const int VK_MEDIA_PAUSE = 0x13;
+        const int VK_MEDIA_STOP = 0xB2;
+        const int VK_MEDIA_FAST_FORWARD = 0x31;
+        const int VK_MEDIA_REWIND = 0x32;
+        const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
+        const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
     }
 }
